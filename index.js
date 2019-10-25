@@ -6,6 +6,8 @@ const breakpoints = {
   xl: 1200
 }
 
+const edge = 0.2;
+
 const delay = 250;// delay between calls
 let throttled = false; // are we currently throttled?
 
@@ -45,36 +47,36 @@ const plugin = {
 
     Vue.prototype.$mediaBreakpointUp = function(key) {
       if (key) {
-        return this.$root._bootstrap.width > breakpoints[key]
+        return this.$root._bootstrap.width >= breakpoints[key]
       }
       return null
 		};
 
     Vue.prototype.$mediaBreakpointDown = function(key) {
       if (key) {
-        return this.$root._bootstrap.width < (breakpoints[key] - .2)
+        return this.$root._bootstrap.width < (breakpoints[key] - edge)
       }
       return null
     };
     
     Vue.prototype.$mediaBreakpointBetween = function(start, end) {
       if (start, end) {
-        return this.$root._bootstrap.width > breakpoints[start] && this.$root._bootstrap.width < breakpoints[end]
+        return this.$root._bootstrap.width >= breakpoints[start] && this.$root._bootstrap.width < breakpoints[end]
       }
       return null
 		};
 
     Vue.prototype.$mediaBreakpointOnly = function(key) {
       if (key === 'xs') {
-        return this.$root._bootstrap.width < (breakpoints.sm - .2)
+        return this.$root._bootstrap.width < (breakpoints.sm - edge)
       } else if (key === 'sm') {
-        return this.$root._bootstrap.width > breakpoints.sm && this.$root._bootstrap.width < (breakpoints.md - .2)
+        return this.$root._bootstrap.width >= breakpoints.sm && this.$root._bootstrap.width < (breakpoints.md - edge)
       } else if (key === 'md') {
-        return this.$root._bootstrap.width > breakpoints.md && this.$root._bootstrap.width < (breakpoints.lg - .2)
+        return this.$root._bootstrap.width >= breakpoints.md && this.$root._bootstrap.width < (breakpoints.lg - edge)
       } else if (key === 'lg') {
-        return this.$root._bootstrap.width > breakpoints.lg && this.$root._bootstrap.width < (breakpoints.xl - .2)
+        return this.$root._bootstrap.width >= breakpoints.lg && this.$root._bootstrap.width < (breakpoints.xl - edge)
       } else if (key === 'xl') {
-        return this.$root._bootstrap.width > breakpoints.xl
+        return this.$root._bootstrap.width >= breakpoints.xl
       }
       return null
     };
